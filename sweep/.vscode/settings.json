@@ -1,0 +1,18 @@
+{
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "QMK": {
+            "path": "S:/programs/QMK_MSYS/usr/bin/bash.exe",
+            "env": {
+                "MSYSTEM": "MINGW64",
+                "CHERE_INVOKING": "1"
+            },
+            "args": ["--login"]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "QMK",
+    "git.openRepositoryInParentFolders": "always"
+}
