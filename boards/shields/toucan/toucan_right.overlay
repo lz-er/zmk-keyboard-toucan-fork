@@ -64,6 +64,9 @@
         dr-gpios = <&gpio0 2 (GPIO_ACTIVE_HIGH)>;
         sensitivity = "2x";
         x-invert;
+        // Tap-to-click is unreliable on Windows; disable it and use the
+        // MOUSE-layer click bindings (S = LCLK, T = RCLK) instead.
+        no-taps;
 
         // Optional: turning this on enables very aggressive power saving, after 5 seconds with no touches
         // the trackpad will go to sleep.  It wakes up on touch, but there is a ~300ms delay.  Most users will find
