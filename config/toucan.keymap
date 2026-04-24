@@ -38,36 +38,36 @@
         qdouble_space_macro: qdouble_space_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp DQT &kp SPACE>;
-            label = "QDOUBLE_SPACE";
+            bindings = <&macro_tap &kp DQT>;
+            label = "QDOUBLE";
         };
 
         qsingle_space_macro: qsingle_space_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp SQT &kp SPACE>;
-            label = "QSINGLE_SPACE";
+            bindings = <&macro_tap &kp SQT>;
+            label = "QSINGLE";
         };
 
         qgrave_space_macro: qgrave_space_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp GRAVE &kp SPACE>;
-            label = "QGRAVE_SPACE";
+            bindings = <&macro_tap &kp GRAVE>;
+            label = "QGRAVE";
         };
 
         tilde_space_macro: tilde_space_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp TILDE &kp SPACE>;
-            label = "TILDE_SPACE";
+            bindings = <&macro_tap &kp TILDE>;
+            label = "TILDE";
         };
 
         hat_space_macro: hat_space_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp CARET &kp SPACE>;
-            label = "HAT_SPACE";
+            bindings = <&macro_tap &kp CARET>;
+            label = "HAT";
         };
 
         terminal_macro: terminal_macro {
@@ -77,6 +77,34 @@
             label = "TERMINAL";
         };
     };
+
+    behaviors {
+        lt_rep: layer_tap_repeatable {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <140>;
+            quick-tap-ms = <175>;
+            flavor = "balanced";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+};
+
+// Speed up the built-in layer-tap (&lt) and mod-tap (&mt) so layer
+// switching feels snappy (matches the QMK 140ms TAPPING_TERM).
+&lt {
+    tapping-term-ms = <140>;
+    quick-tap-ms = <175>;
+    flavor = "balanced";
+};
+
+&mt {
+    tapping-term-ms = <150>;
+    quick-tap-ms = <175>;
+    flavor = "balanced";
+};
+
+/ {
 
     combos {
         compatible = "zmk,combos";
@@ -114,7 +142,7 @@
                 &kp TAB   &kp Q &kp W &kp F &kp P &kp B   &kp J &kp L     &kp U     &kp Y    &kp SEMI &kp BSPC
                 &kp LCTRL &kp A &kp R &kp S &kp T &kp G   &kp M &kp N     &kp E     &kp I    &kp O    &kp SQT
                 &kp LSHFT &kp Z &kp X &kp C &kp D &kp V   &kp K &kp H     &kp COMMA &kp DOT  &kp FSLH &kp ESC
-                               &mt LCTRL TAB &lt FUNC BSPC &lt RAISE SPACE  &lt LOWER RET &kp LSHFT &mt LALT LGUI
+                               &mt LCTRL TAB &lt_rep FUNC BSPC &lt RAISE SPACE  &lt LOWER RET &kp LSHFT &mt LALT LGUI
             >;
         };
 
