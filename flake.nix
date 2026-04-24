@@ -80,8 +80,18 @@
               { inherit firmware; };
     });
 
-    devShells = forAllSystems (system: {
-      default = zmk-nix.devShells.${system}.default;
+    devShells = forAllSystems (system: let
+      baseShell = zmk-nix.devShells.${system}.default;
+    in {
+      default = baseShell.overrideAttrs (old: {
+        shellHook = (old.shellHook or "") + ''
+          echo
+          echo "Toucan flash commands:"
+          echo "  nix run .#flash left right    # flash both halves"
+          echo "  nix run .#flash               # flash left, right, and reset"
+          echo
+        '';
+      });
     });
   };
 }
