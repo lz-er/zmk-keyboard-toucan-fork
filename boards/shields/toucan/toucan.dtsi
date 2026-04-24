@@ -108,8 +108,10 @@
         status = "disabled";
         device = <&glidepoint_split>;
         input-processors = <&zip_xy_scaler 250 100>;
+        // Convert trackpad XY motion into scroll wheel events while the
+        // FUNC layer (index 4, see config/toucan.keymap) is active.
         scroller {
-            layers = <1 2>;
+            layers = <4>;
             input-processors = <
                 &zip_xy_to_scroll_mapper
                 &zip_scroll_scaler 1 5
