@@ -107,13 +107,23 @@
         compatible = "zmk,input-listener";
         status = "disabled";
         device = <&glidepoint_split>;
-        input-processors = <&zip_xy_scaler 250 100>;
+        // Speed up cursor (2.5x) and momentarily activate the MOUSE layer
+        // (index 6, see config/toucan.keymap) for 200 ms after every
+        // trackpad event, so on-keyboard click keys are reachable while
+        // touching the pad.
+        input-processors = <
+            &zip_xy_scaler 250 100
+            &zip_temp_layer 6 200
+        >;
+        // Convert trackpad XY motion into scroll wheel events while the
+        // FUNC layer (index 4) is active. Scaler 1/10 (slower than the
+        // previous 1/5) and both axes inverted for natural scrolling.
         scroller {
-            layers = <1 2>;
+            layers = <4>;
             input-processors = <
                 &zip_xy_to_scroll_mapper
-                &zip_scroll_scaler 1 5
-                &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+                &zip_scroll_scaler 1 10
+                &zip_scroll_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
             >;
         };
     };

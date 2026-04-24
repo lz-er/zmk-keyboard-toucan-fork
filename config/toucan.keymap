@@ -9,6 +9,7 @@
 #define ADJUST  3
 #define FUNC    4
 #define GAMING  5
+#define MOUSE   6
 
 / {
     macros {
@@ -277,8 +278,30 @@
             >;
         };
 
+        /* Mouse (auto-activated for ~200ms while touching the trackpad)
+         *
+         * Only S and T are remapped; everything else falls through to
+         * the underlying layer via &trans.
+         *
+         * ,----------------------------------.           ,----------------------------------.
+         * |      |      |      |      |      |           |      |      |      |      |      |
+         * |------+------+------+------+------|           |------+------+------+------+------|
+         * |      |      |      | LCLK | RCLK |           |      |      |      |      |      |
+         * |------+------+------+------+------|           |------+------+------+------+------|
+         * |      |      |      |      |      |           |      |      |      |      |      |
+         * `----------------------------------'           `----------------------------------'
+         *                  ,--------------------.    ,--------------------.
+         *                  |      |      |      |    |      |      |      |
+         *                  `--------------------'    `--------------------'
+         */
         extra_3 {
-            status = "reserved";
+            display-name = "MOUS";
+            bindings = <
+                &trans     &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans
+                &trans     &trans        &trans        &mkp LCLK     &mkp RCLK     &trans        &trans        &trans        &trans        &trans        &trans        &trans
+                &trans     &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans
+                                              &trans         &trans         &trans          &trans            &trans         &trans
+            >;
         };
 
     };
